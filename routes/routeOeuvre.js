@@ -1,9 +1,12 @@
-const express = require("express");
+import express from "express";
+import OeuvreController from "../controllers/controllerOeuvre.js";
+
+const oeuvreController = new OeuvreController();
 const router = express.Router();
-const oeuvreController = require("../controllers/controllerOeuvre.js");
+
 router.get("/:id", oeuvreController.readOeuvre);
 router.post("/", oeuvreController.creatOeuvre);
 router.put("/:id", oeuvreController.updateOeuvre);
 router.delete("/:id", oeuvreController.deleteOeuvre);
 
-module.exports = router;
+export default router;

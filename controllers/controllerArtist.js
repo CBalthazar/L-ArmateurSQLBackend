@@ -1,5 +1,4 @@
-const express = require("express");
-class artisteController {
+class ArtisteController {
   creatArtiste(req, res) {
     res.send("post artiste ajouté");
   }
@@ -14,4 +13,4 @@ class artisteController {
   }
 }
 
-module.exports = new artisteController();
+export default ArtisteController;

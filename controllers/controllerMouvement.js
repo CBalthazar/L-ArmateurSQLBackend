@@ -1,5 +1,4 @@
-const express = require("express");
-class mouvementController {
+class MouvementController {
   creatMouvement(req, res) {
     res.send("post mouvement ajouté");
   }
@@ -14,4 +13,4 @@ class mouvementController {
   }
 }
 
-module.exports = new mouvementController();
+export default MouvementController;

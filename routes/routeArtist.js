@@ -1,9 +1,12 @@
-const express = require("express");
+import express from "express";
+import ArtisteController from "../controllers/controllerArtist.js";
+
+const artisteController = new ArtisteController();
 const router = express.Router();
-const artisteController = require("../controllers/controllerArtist.js");
+
 router.get("/:id", artisteController.readArtiste);
 router.post("/", artisteController.creatArtiste);
 router.put("/:id", artisteController.updateArtiste);
 router.delete("/:id", artisteController.deleteArtiste);
 
-module.exports = router;
+export default router;

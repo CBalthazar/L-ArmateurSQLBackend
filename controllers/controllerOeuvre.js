@@ -1,5 +1,4 @@
-const express = require("express");
-class oeuvreController {
+class OeuvreController {
   creatOeuvre(req, res) {
     res.send("post Oeuvre ajouté");
   }
@@ -14,4 +13,4 @@ class oeuvreController {
   }
 }
 
-module.exports = new oeuvreController();
+export default OeuvreController;
