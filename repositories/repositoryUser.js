@@ -27,6 +27,7 @@ class UserRepository {
         mail,
       ]);
       if (!user) throw new Error("user not in database");
+      return user;
     } catch (err) {
       console.log("repo get user by mail");
       console.error(err);

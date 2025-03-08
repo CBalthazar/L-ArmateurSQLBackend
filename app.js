@@ -1,5 +1,6 @@
 import express from "express";
 import "dotenv/config";
+import "./script.js";
 import cookieParser from "cookie-parser";
 
 import routerUser from "./routes/routeUser.js";

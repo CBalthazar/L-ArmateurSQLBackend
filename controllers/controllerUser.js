@@ -31,11 +31,15 @@ class UserController {
       });
 
       res.cookie("token", token, {
-        maxAge: Date(Date.now() + 3600 * 1000),
         httpOnly: true,
+        maxAge: new Date(Date.now() + 3600),
         secure: process.env.NODE_ENV === "prod",
         sameSite: "Strict",
       });
+
+      delete user.password;
+      delete user.mail;
+
       res.status(200).json(user);
     } catch (err) {
       console.log("controller login:");
