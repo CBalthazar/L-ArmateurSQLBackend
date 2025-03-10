@@ -12,7 +12,7 @@ const seed = async () => {
   let conn;
   try {
     conn = await pool.getConnection();
-    let transaction = await conn.beginTransaction;
+    let transaction = await conn.beginTransaction();
     try {
       await conn.query(
         `DROP TABLE IF EXISTS users;
@@ -73,6 +73,8 @@ const seed = async () => {
           );
         `
       );
+      await conn.commit();
+      console.log("DB seeded");
     } catch (err) {
       await conn.rollback();
       throw err;
@@ -83,4 +85,6 @@ const seed = async () => {
   }
 };
 
-seed();
+seed().then(() => {
+  pool.end();
+});

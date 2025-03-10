@@ -32,7 +32,7 @@ class UserController {
 
       res.cookie("token", token, {
         httpOnly: true,
-        maxAge: new Date(Date.now() + 3600),
+        maxAge: 3600000,
         secure: process.env.NODE_ENV === "prod",
         sameSite: "Strict",
       });
@@ -49,7 +49,7 @@ class UserController {
 
   async logoutUser(req, res, next) {
     res.cookie("token", "", {
-      maxAge: Date.now(),
+      maxAge: 0,
     });
     res.status(200).json({ message: "logged out" });
   }
