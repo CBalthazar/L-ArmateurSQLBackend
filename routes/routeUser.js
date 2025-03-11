@@ -9,19 +9,25 @@ const userController = new UserController();
 router.post("/register", validate(userSchema), (req, res, next) => {
   userController.registerUser(req, res, next);
 });
+
 router.post("/login", (req, res, next) => {
   userController.loginUser(req, res, next);
 });
+
 router.post("/logout", (req, res, next) => {
   userController.logoutUser(req, res, next);
 });
 
-router.get("/", (req, res, next) => {
+router.get("/all", (req, res, next) => {
+  userController.getAllUsers(req, res, next);
+});
+
+router.get("/:id", (req, res, next) => {
   userController.getUserById(req, res, next);
 });
-router.put("/", validate(userSchema), (req, res, next) => {
-  userController.updateUser(req, res, next);
-});
+
+router.put("/");
+
 router.delete("/");
 
 export default router;

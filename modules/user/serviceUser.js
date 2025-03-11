@@ -42,6 +42,24 @@ class UserService {
       console.error(err);
     }
   }
+
+  async getAllUsers() {
+    return await this.userRepository.getAllUsers();
+  }
+
+  async updateUser(id, pseudonym, mail, password, description) {
+    try {
+      const hash = await argon2.hash(password);
+      return await this.updateUser(id, pseudonym, mail, hash, description);
+    } catch (err) {
+      console.log("service update user");
+      console.error(err);
+    }
+  }
+
+  async deleteUser(id) {
+    return await this.userRepository.deleteUser(id);
+  }
 }
 
 export default UserService;
