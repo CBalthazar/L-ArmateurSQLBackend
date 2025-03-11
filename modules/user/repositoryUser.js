@@ -31,6 +31,8 @@ class UserRepository {
     } catch (err) {
       console.log("repo get user by mail");
       console.error(err);
+    } finally {
+      if (conn) conn.release();
     }
   }
 
@@ -43,6 +45,54 @@ class UserRepository {
     } catch (err) {
       console.log("repo getUserById");
       console.error(err);
+    } finally {
+      if (conn) conn.release();
+    }
+  }
+
+  async getAllUsers() {
+    let conn;
+    try {
+      conn = await pool.getConnection();
+      const users = await conn.query(
+        "SELECT pseudonym, description FROM Users"
+      );
+      return users;
+    } catch (err) {
+      console.log("repo get all users");
+      console.error(err);
+    } finally {
+      if (conn) conn.release();
+    }
+  }
+
+  async updateUser(id, pseudonym, mail, password, description) {
+    let conn;
+    try {
+      conn = await pool.getConnection();
+      await conn.query(
+        "UPDATE Users SET pseudonym=?, mail=?, password=?, description=? WHERE id=?",
+        [pseudonym, mail, password, description, id]
+      );
+      return await this.getUserById(id);
+    } catch (err) {
+      console.log("repository update user");
+      console.error(err);
+    } finally {
+      if (conn) conn.release();
+    }
+  }
+
+  async deleteUser(id) {
+    let conn;
+    try {
+      conn = await pool.getConnection();
+      await conn.query("DELETE FROM Users WHERE id=?", [id]);
+    } catch (err) {
+      console.log("repo delete user");
+      console.error(err);
+    } finally {
+      if (conn) conn.release();
     }
   }
 }
