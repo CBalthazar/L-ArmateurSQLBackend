@@ -12,7 +12,7 @@ const seed = async () => {
   let conn;
   try {
     conn = await pool.getConnection();
-    let transaction = await conn.beginTransaction();
+    await conn.beginTransaction();
     try {
       await conn.query(
         `DROP TABLE IF EXISTS users;
