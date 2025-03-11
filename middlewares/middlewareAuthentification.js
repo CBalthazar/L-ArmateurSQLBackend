@@ -11,3 +11,5 @@ function authToken(req, res, next) {
     req.userMail = user.mail;
   });
 }
+
+export default authToken;

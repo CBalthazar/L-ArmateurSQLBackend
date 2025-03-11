@@ -12,7 +12,7 @@ const seed = async () => {
   let conn;
   try {
     conn = await pool.getConnection();
-    let transaction = await conn.beginTransaction();
+    await conn.beginTransaction();
     try {
       await conn.query(
         `DROP TABLE IF EXISTS users;
@@ -29,15 +29,15 @@ const seed = async () => {
           description TEXT
           );
         CREATE TABLE artistes (
-          idArtiste INT PRIMARY KEY,
+          idArtiste UUID PRIMARY KEY,
           nom VARCHAR(50) NOT NULL,
-          contenu VARCHAR(1000) NOT NULL,
+          contenu TEXT NOT NULL,
           date_debut DATE NOT NULL,
           date_fin DATE DEFAULT NULL,
           image_url VARCHAR(255)
           );
         CREATE TABLE mouvements (
-          idMouvement INT PRIMARY KEY,
+          idMouvement UUID PRIMARY KEY,
           nom VARCHAR(50) NOT NULL,
           contenu VARCHAR(150) NOT NULL,
           date_debut DATE NOT NULL,
@@ -45,19 +45,19 @@ const seed = async () => {
           image_url VARCHAR(255)
           );
         CREATE TABLE oeuvres (
-          idOeuvre INT PRIMARY KEY,
+          idOeuvre UUID PRIMARY KEY,
           nom VARCHAR(50) NOT NULL,
           contenu VARCHAR(1000) NOT NULL,
           date_debut DATE NOT NULL,
           date_fin DATE DEFAULT NULL,
           image_url VARCHAR(255),
-          idArtiste INT,
+          idArtiste UUID,
           stock INT CHECK (stock >= 0),
           FOREIGN KEY (idArtiste) REFERENCES artistes (idArtiste) ON DELETE SET NULL
           );
         CREATE TABLE oeuvres_mouvements (
-          idOeuvre INT,
-          idMouvement INT,
+          idOeuvre UUID,
+          idMouvement UUID,
           PRIMARY KEY (idOeuvre,
           idMouvement),
           FOREIGN KEY (idOeuvre) REFERENCES oeuvres (idOeuvre) ON DELETE CASCADE,
